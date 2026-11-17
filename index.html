@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDGERUNNERS // Arasaka Division</title>
+    <meta name="description" content="EDGERUNNERS — Scientific discoveries, cutting-edge projects, and AI copilot consultation for wet laboratories.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ═══════════════════════════════════════════
+           EDGERUNNERS — ARASAKA CYBERPUNK THEME
+           ═══════════════════════════════════════════ */
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0d0d14;
+            --bg-card: #111119;
+            --bg-card-hover: #16161f;
+            --neon-red: #ff003c;
+            --neon-red-dim: #cc0030;
+            --neon-cyan: #00f0ff;
+            --neon-cyan-dim: #00b8c4;
+            --neon-yellow: #ffe600;
+            --neon-magenta: #ff00aa;
+            --text-primary: #e8e6e3;
+            --text-secondary: #8a8a9a;
+            --text-muted: #55556a;
+            --border-color: #1a1a2e;
+            --border-glow: rgba(255, 0, 60, 0.3);
+            --scanline-opacity: 0.03;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-red) var(--bg-primary);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-red); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+        /* ─── Scanline Overlay ─── */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+                rgba(0, 0, 0, var(--scanline-opacity)) 4px
+            );
+        }
+
+        /* ─── Glitch Keyframes ─── */
+        @keyframes glitch {
+            0% { text-shadow: 2px 0 var(--neon-cyan), -2px 0 var(--neon-red); }
+            20% { text-shadow: -2px 0 var(--neon-cyan), 2px 0 var(--neon-red); }
+            40% { text-shadow: 2px 2px var(--neon-cyan), -2px -2px var(--neon-red); }
+            60% { text-shadow: -1px 0 var(--neon-cyan), 1px 0 var(--neon-red); }
+            80% { text-shadow: 2px -1px var(--neon-cyan), -2px 1px var(--neon-red); }
+            100% { text-shadow: 2px 0 var(--neon-cyan), -2px 0 var(--neon-red); }
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            2% { transform: skew(-2deg); }
+            4% { transform: skew(0deg); }
+            48% { transform: skew(0deg); }
+            50% { transform: skew(3deg); }
+            52% { transform: skew(0deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            41.99% { opacity: 1; }
+            42% { opacity: 0.8; }
+            43% { opacity: 1; }
+            45% { opacity: 0.3; }
+            46% { opacity: 1; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px var(--neon-red), 0 0 10px rgba(255,0,60,0.3); }
+            50% { box-shadow: 0 0 15px var(--neon-red), 0 0 30px rgba(255,0,60,0.4); }
+        }
+
+        @keyframes data-stream {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes border-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            50% { border-color: transparent; }
+        }
+
+        @keyframes hex-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ─── NAVIGATION ─── */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 0;
+            transition: all 0.3s ease;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav.scrolled {
+            border-bottom-color: var(--neon-red);
+            box-shadow: 0 2px 20px rgba(255, 0, 60, 0.15);
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: 6px;
+            color: var(--neon-red);
+            text-decoration: none;
+            position: relative;
+            animation: flicker 4s infinite;
+        }
+
+        .nav-logo::before {
+            content: 'アラサカ';
+            position: absolute;
+            top: -12px;
+            left: 0;
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            letter-spacing: 8px;
+            font-family: sans-serif;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '//';
+            margin-right: 4px;
+            color: var(--neon-red);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-red);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: var(--neon-red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--neon-red);
+            transition: all 0.3s;
+        }
+
+        /* ─── HERO SECTION ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(255,0,60,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,240,255,0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(255,0,170,0.04) 0%, transparent 50%);
+        }
+
+        /* Animated grid */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,0,60,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,0,60,0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: border-flow 20s linear infinite;
+        }
+
+        /* Floating data streams */
+        .data-column {
+            position: absolute;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            color: rgba(255, 0, 60, 0.12);
+            writing-mode: vertical-rl;
+            white-space: nowrap;
+            animation: data-stream 15s linear infinite;
+            user-select: none;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            z-index: 10;
+            padding: 0 20px;
+        }
+
+        .hero-subtitle-top {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 8px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            letter-spacing: 15px;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 15px;
+            animation: glitch 3s infinite, glitch-skew 6s infinite;
+            position: relative;
+        }
+
+        .hero-title .red { color: var(--neon-red); }
+
+        .hero-jp {
+            font-size: 1rem;
+            color: var(--text-muted);
+            letter-spacing: 15px;
+            margin-bottom: 30px;
+        }
+
+        .hero-tagline {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            letter-spacing: 3px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--bg-primary);
+            background: var(--neon-red);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            text-decoration: none;
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+            transition: all 0.3s;
+            animation: pulse-glow 2s infinite;
+        }
+
+        .hero-cta:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            letter-spacing: 6px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            animation: flicker 3s infinite;
+        }
+
+        .scroll-indicator .arrow {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--neon-red), transparent);
+        }
+
+        /* ─── SECTION STYLING ─── */
+        section {
+            padding: 120px 40px;
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            color: var(--neon-red);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--neon-red);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: 8px;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .section-title .accent { color: var(--neon-red); }
+        .section-title .cyan { color: var(--neon-cyan); }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-top: 20px;
+            max-width: 600px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* ─── DIVIDER ─── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-red), transparent);
+            max-width: 1400px;
+            margin: 0 auto;
+            opacity: 0.3;
+        }
+
+        /* ─── ABOUT SECTION ─── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            aspect-ratio: 1;
+            max-width: 450px;
+        }
+
+        .about-image-frame {
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-placeholder {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--neon-red);
+            opacity: 0.15;
+            letter-spacing: 5px;
+        }
+
+        .about-image-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,0,60,0.1) 0%, transparent 50%);
+        }
+
+        .about-corner {
+            position: absolute;
+            width: 15px; height: 15px;
+            border: 1px solid var(--neon-red);
+        }
+
+        .about-corner.tl { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .about-corner.tr { top: -5px; right: -5px; border-left: none; border-bottom: none; }
+        .about-corner.bl { bottom: -5px; left: -5px; border-right: none; border-top: none; }
+        .about-corner.br { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+            transition: border-color 0.3s;
+        }
+
+        .stat-box:hover {
+            border-color: var(--neon-red);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--neon-red);
+        }
+
+        .stat-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .about-text .highlight {
+            color: var(--neon-cyan);
+            font-weight: 500;
+        }
+
+        /* ─── DISCOVERIES SECTION ─── */
+        .discoveries-timeline {
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .discoveries-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--neon-red), var(--neon-cyan), var(--neon-magenta));
+        }
+
+        .discovery-item {
+            position: relative;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+            transition: all 0.4s;
+        }
+
+        .discovery-item:hover {
+            border-color: var(--neon-red);
+            background: var(--bg-card-hover);
+            transform: translateX(10px);
+        }
+
+        .discovery-item::before {
+            content: '';
+            position: absolute;
+            left: -48px;
+            top: 35px;
+            width: 12px;
+            height: 12px;
+            background: var(--neon-red);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        .discovery-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            color: var(--neon-red);
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .discovery-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .discovery-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .discovery-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .discovery-tag {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+        }
+
+        /* ─── PROJECTS SECTION ─── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+            transition: all 0.4s;
+        }
+
+        .project-card:hover {
+            border-color: var(--neon-red);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 0, 60, 0.1);
+        }
+
+        .project-card-header {
+            padding: 25px 30px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .project-status.active {
+            color: #00ff88;
+        }
+
+        .project-status.active::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #00ff88;
+            box-shadow: 0 0 8px #00ff88;
+            animation: flicker 2s infinite;
+        }
+
+        .project-status.development {
+            color: var(--neon-yellow);
+        }
+
+        .project-status.development::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--neon-yellow);
+            box-shadow: 0 0 8px var(--neon-yellow);
+        }
+
+        .project-status.research {
+            color: var(--neon-cyan);
+        }
+
+        .project-status.research::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        .project-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .project-card-body {
+            padding: 20px 30px 25px;
+        }
+
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .project-tech span {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            padding: 3px 10px;
+            background: rgba(255, 0, 60, 0.08);
+            border: 1px solid rgba(255, 0, 60, 0.2);
+            color: var(--neon-red);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .project-progress {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-cyan));
+            transition: width 1s ease;
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        /* ─── CONSULTATION SECTION ─── */
+        .consult-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .consult-features {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .consult-feature {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+            transition: all 0.3s;
+        }
+
+        .consult-feature:hover {
+            border-color: var(--neon-red);
+            background: var(--bg-card-hover);
+        }
+
+        .consult-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--neon-red);
+            border: 1px solid var(--neon-red);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            flex-shrink: 0;
+            background: rgba(255, 0, 60, 0.05);
+        }
+
+        .consult-feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .consult-feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .consult-cta-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 50px 40px;
+            clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 25px 100%, 0 calc(100% - 25px));
+            position: relative;
+        }
+
+        .consult-cta-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,0,60,0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .consult-cta-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .consult-cta-box p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .consult-cta-box .price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .consult-cta-box .price span {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--bg-primary);
+            background: var(--neon-red);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--neon-cyan);
+            letter-spacing: 5px;
+        }
+
+        .cta-button-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--neon-red);
+            background: transparent;
+            border: 1px solid var(--neon-red);
+            cursor: pointer;
+            text-decoration: none;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+            transition: all 0.3s;
+            margin-left: 15px;
+        }
+
+        .cta-button-outline:hover {
+            background: rgba(255, 0, 60, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* ─── CONTACT / FOOTER ─── */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            color: var(--neon-red);
+            margin-bottom: 15px;
+        }
+
+        .footer-brand-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 350px;
+        }
+
+        .footer-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-red);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+
+        .footer-social a:hover {
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+            background: rgba(255, 0, 60, 0.05);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-bottom p {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        .footer-bottom .jp-text {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        /* ─── SCROLL ANIMATIONS ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── CURSOR EFFECT ─── */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            background: radial-gradient(circle, rgba(255,0,60,0.06) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+
+        /* ─── MOBILE RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .consult-wrapper { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 80px 20px; }
+
+            .nav-inner { padding: 15px 20px; }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 15, 0.98);
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+                border-bottom: 1px solid var(--neon-red);
+            }
+
+            .nav-links.active { display: flex; }
+            .hamburger { display: flex; }
+
+            .hero-title { letter-spacing: 5px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .about-stats { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .cta-button-outline {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-subtitle-top { font-size: 0.6rem; letter-spacing: 4px; }
+            .discoveries-timeline { padding-left: 40px; }
+            .discovery-item { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cursor Glow Effect -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- ═══ NAVIGATION ═══ -->
+    <nav class="nav" id="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">EDGERUNNERS</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#discoveries" onclick="closeMenu()">Discoveries</a></li>
+                <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                <li><a href="#consultation" onclick="closeMenu()">Consultation</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO SECTION ═══ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+
+        <!-- Data streams -->
+        <div class="data-column" style="left: 5%; animation-duration: 18s; animation-delay: 0s;">01001010 NEURAL LINK ACTIVE 11010010 SYNAPSE BRIDGE CONNECTED 00110100</div>
+        <div class="data-column" style="left: 15%; animation-duration: 22s; animation-delay: -5s;">ARASAKA CORP // DIVISION 6 // LAB ACCESS GRANTED // CLEARANCE LEVEL: OMEGA</div>
+        <div class="data-column" style="left: 85%; animation-duration: 20s; animation-delay: -3s;">WETWARE INTERFACE v4.7 // BIOCHIP STATUS: NOMINAL // AI COPILOT: ONLINE</div>
+        <div class="data-column" style="left: 92%; animation-duration: 16s; animation-delay: -8s;">00101101 GENOME SEQUENCING 10110100 CRISPR MODULE ACTIVE 01010011</div>
+
+        <div class="hero-content">
+            <div class="hero-subtitle-top">[ Arasaka Biotech Division ]</div>
+            <h1 class="hero-title">EDGE<span class="red">RUNNERS</span></h1>
+            <div class="hero-jp">エッジランナーズ ◆ 科学の未来</div>
+            <p class="hero-tagline">
+                Scientific discovery. Cutting-edge projects.<br>
+                AI-augmented wet lab consultation.<br>
+                <span style="color: var(--neon-cyan);">Welcome to the frontier.</span>
+            </p>
+            <a href="#consultation" class="hero-cta">
+                JACK IN <i class="fas fa-terminal" style="font-size: 0.7rem;"></i>
+            </a>
+        </div>
+
+        <div class="scroll-indicator">
+            SCROLL
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══ ABOUT SECTION ═══ -->
+    <section id="about">
+        <div class="section-header reveal">
+            <div class="section-label">// 01 — Identity</div>
+            <h2 class="section-title">THE <span class="accent">OPERATOR</span></h2>
+            <p class="section-desc">Bridging the gap between biological systems and artificial intelligence — one experiment at a time.</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-image-wrapper reveal">
+                <div class="about-image-frame">
+                    <div class="about-placeholder">E.R.</div>
+                </div>
+                <div class="about-corner tl"></div>
+                <div class="about-corner tr"></div>
+                <div class="about-corner bl"></div>
+                <div class="about-corner br"></div>
+            </div>
+
+            <div class="reveal">
+                <div class="about-text">
+                    <p>
+                        I am a scientist and technologist operating at the intersection of
+                        <span class="highlight">artificial intelligence</span> and
+                        <span class="highlight">wet laboratory research</span>. My work focuses
+                        on deploying AI copilots into real-world lab environments — accelerating
+                        discovery pipelines, optimizing experimental protocols, and augmenting
+                        human researchers with machine intelligence.
+                    </p>
+                    <p>
+                        From molecular biology to computational genomics, I build systems that
+                        make scientific breakthroughs happen faster. Whether it's designing
+                        AI-driven assay optimization or creating intelligent lab automation
+                        workflows — I bring the future of science to the bench.
+                    </p>
+                </div>
+
+                <div class="about-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">12+</div>
+                        <div class="stat-label">Publications</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Active Projects</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Labs Consulted</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Curiosity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══ DISCOVERIES SECTION ═══ -->
+    <section id="discoveries">
+        <div class="section-header reveal">
+            <div class="section-label">// 02 — Research Archive</div>
+            <h2 class="section-title">SCIENTIFIC <span class="accent">DISCOVERIES</span></h2>
+            <p class="section-desc">Key breakthroughs and research contributions that push the boundaries of what's possible.</p>
+        </div>
+
+        <div class="discoveries-timeline">
+            <div class="discovery-item reveal">
+                <div class="discovery-year">◆ 2024 — BREAKTHROUGH</div>
+                <h3 class="discovery-title">AI-Guided Protein Folding Optimization</h3>
+                <p class="discovery-desc">
+                    Developed a novel machine learning pipeline that integrates with AlphaFold predictions
+                    to optimize recombinant protein expression in E. coli systems, reducing iteration
+                    cycles by 60% and improving yield by 3.2x.
+                </p>
+                <div class="discovery-tags">
+                    <span class="discovery-tag">Machine Learning</span>
+                    <span class="discovery-tag">Protein Engineering</span>
+                    <span class="discovery-tag">Bioinformatics</span>
+                </div>
+            </div>
+
+            <div class="discovery-item reveal">
+                <div class="discovery-year">◆ 2023 — PUBLICATION</div>
+                <h3 class="discovery-title">Autonomous Lab Workflow Orchestration</h3>
+                <p class="discovery-desc">
+                    Designed and deployed an intelligent lab automation system using reinforcement learning
+                    agents that autonomously schedule, execute, and analyze high-throughput screening
+                    experiments with minimal human intervention.
+                </p>
+                <div class="discovery-tags">
+                    <span class="discovery-tag">Reinforcement Learning</span>
+                    <span class="discovery-tag">Automation</span>
+                    <span class="discovery-tag">HTS</span>
+                </div>
+            </div>
+
+            <div class="discovery-item reveal">
+                <div class="discovery-year">◆ 2022 — INNOVATION</div>
+                <h3 class="discovery-title">Natural Language Interface for LIMS</h3>
+                <p class="discovery-desc">
+                    Created a conversational AI layer on top of Laboratory Information Management Systems,
+                    enabling researchers to query experimental data, generate reports, and trigger
+                    protocols using natural language commands.
+                </p>
+                <div class="discovery-tags">
+                    <span class="discovery-tag">NLP</span>
+                    <span class="discovery-tag">LIMS</span>
+                    <span class="discovery-tag">Lab Informatics</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══ PROJECTS SECTION ═══ -->
+    <section id="projects">
+        <div class="section-header reveal">
+            <div class="section-label">// 03 — Active Operations</div>
+            <h2 class="section-title">CURRENT <span class="accent">PROJECTS</span></h2>
+            <p class="section-desc">What I'm building right now — bleeding-edge systems at the intersection of AI and life science.</p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-status active">Online — Active</div>
+                    <h3 class="project-name">PROJECT CHIMERA</h3>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-desc">
+                        An AI copilot framework that integrates directly with liquid handling robots
+                        and plate readers to provide real-time experimental recommendations, anomaly
+                        detection, and adaptive protocol adjustment.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>PyTorch</span>
+                        <span>OT-2 API</span>
+                        <span>FastAPI</span>
+                    </div>
+                    <div class="project-progress">
+                        <div class="progress-label">
+                            <span>Progress</span>
+                            <span>78%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-status development">In Development</div>
+                    <h3 class="project-name">NEUROSYNC</h3>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-desc">
+                        A multi-modal AI system that reads microscopy images, spectrophotometry
+                        data, and experimental notes simultaneously to generate comprehensive
+                        analysis reports and suggest next experimental steps.
+                    </p>
+                    <div class="project-tech">
+                        <span>Computer Vision</span>
+                        <span>LLM</span>
+                        <span>Multi-Modal</span>
+                        <span>React</span>
+                    </div>
+                    <div class="project-progress">
+                        <div class="progress-label">
+                            <span>Progress</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-card-header">
+                    <div class="project-status research">Research Phase</div>
+                    <h3 class="project-name">GENESIS ENGINE</h3>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-desc">
+                        An experimental platform for generative biology — using diffusion models
+                        and evolutionary algorithms to design novel enzyme variants with
+                        predicted catalytic properties beyond natural evolution.
+                    </p>
+                    <div class="project-tech">
+                        <span>Diffusion Models</span>
+                        <span>Genetic Algorithms</span>
+                        <span>Enzyme Design</span>
+                    </div>
+                    <div class="project-progress">
+                        <div class="progress-label">
+                            <span>Progress</span>
+                            <span>22%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 22%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══ CONSULTATION SECTION ═══ -->
+    <section id="consultation">
+        <div class="section-header reveal">
+            <div class="section-label">// 04 — Services</div>
+            <h2 class="section-title">AI <span class="cyan">COPILOT</span> CONSULTATION</h2>
+            <p class="section-desc">Ready to bring AI into your wet lab? I'll help you integrate intelligent systems that actually work at the bench.</p>
+        </div>
+
+        <div class="consult-wrapper">
+            <div class="consult-features reveal">
+                <div class="consult-feature">
+                    <div class="consult-icon"><i class="fas fa-brain"></i></div>
+                    <div>
+                        <div class="consult-feature-title">AI Strategy Assessment</div>
+                        <p class="consult-feature-desc">
+                            Comprehensive audit of your lab workflows to identify where AI copilots
+                            can deliver the highest ROI — from data analysis to protocol optimization.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="consult-feature">
+                    <div class="consult-icon"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <div class="consult-feature-title">Custom AI Copilot Development</div>
+                        <p class="consult-feature-desc">
+                            End-to-end design and deployment of AI assistants tailored to your
+                            specific instruments, assays, and research domain.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="consult-feature">
+                    <div class="consult-icon"><i class="fas fa-flask"></i></div>
+                    <div>
+                        <div class="consult-feature-title">Lab Automation Integration</div>
+                        <p class="consult-feature-desc">
+                            Connect your existing instruments and LIMS to AI-driven pipelines
+                            that automate repetitive tasks and surface actionable insights.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="consult-feature">
+                    <div class="consult-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div>
+                        <div class="consult-feature-title">Team Training & Upskilling</div>
+                        <p class="consult-feature-desc">
+                            Hands-on workshops for your research team to effectively leverage
+                            AI tools in their daily workflow without needing to code.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="consult-cta-box reveal">
+                <h3>READY TO <span style="color: var(--neon-cyan);">UPGRADE</span>?</h3>
+                <p>
+                    Whether you're running a startup biotech lab or managing a pharma R&D division,
+                    I can help you deploy AI copilots that integrate seamlessly with your wet lab
+                    infrastructure. Let's talk about what's possible.
+                </p>
+                <div class="price">
+                    STARTING AT <span>FREE</span> INITIAL CONSULTATION
+                </div>
+                <a href="mailto:your.email@example.com" class="cta-button">
+                    BOOK SESSION <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#contact" class="cta-button-outline">
+                    LEARN MORE <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ═══ CONTACT / FOOTER ═══ -->
+    <footer class="footer" id="contact">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">EDGERUNNERS</div>
+                <p class="footer-brand-desc">
+                    Operating at the bleeding edge of science and technology.
+                    Building AI systems that don't just analyze data — they
+                    accelerate discovery.
+                </p>
+                <div class="footer-social">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                    <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <div class="footer-heading">Navigate</div>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="#discoveries">Discoveries</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#consultation">Consultation</a>
+                </div>
+            </div>
+
+            <div>
+                <div class="footer-heading">Connect</div>
+                <div class="footer-links">
+                    <a href="mailto:your.email@example.com">your.email@example.com</a>
+                    <a href="#">GitHub Profile</a>
+                    <a href="#">Google Scholar</a>
+                    <a href="#">ResearchGate</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 EDGERUNNERS // ALL RIGHTS RESERVED // DIVISION 6</p>
+            <p class="jp-text">エッジランナーズ — 未来を切り拓く</p>
+        </div>
+    </footer>
+
+    <!-- ═══ JAVASCRIPT ═══ -->
+    <script>
+        // ─── Navbar scroll effect ───
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ─── Mobile menu ───
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        // ─── Cursor glow ───
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // ─── Scroll reveal ───
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ─── Progress bar animation ───
+        const progressBars = document.querySelectorAll('.progress-fill');
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bar = entry.target;
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => { bar.style.width = width; }, 200);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        progressBars.forEach(bar => progressObserver.observe(bar));
+
+        // ─── Smooth scroll for anchor links ───
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ─── Dynamic year ───
+        document.querySelectorAll('.footer-bottom p').forEach(p => {
+            p.innerHTML = p.innerHTML.replace('2024', new Date().getFullYear());
+        });
+
+        // ─── Console Easter Egg ───
+        console.log('%c EDGERUNNERS ', 'background: #ff003c; color: #0a0a0f; font-family: monospace; font-size: 20px; font-weight: bold; padding: 10px 20px; letter-spacing: 5px;');
+        console.log('%c アラサカ・バイオテック部門 ', 'color: #00f0ff; font-family: monospace; font-size: 12px; letter-spacing: 3px;');
+        console.log('%c Welcome to the edge, choomba. ', 'color: #8a8a9a; font-family: monospace; font-size: 11px;');
+    </script>
+</body>
+</html>
